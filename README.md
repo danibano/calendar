@@ -17,5 +17,6 @@ Click [here.](https://danibano.github.io/work-day-scheduler/)
 ## Usage
 
 ![Online Planner](./Assets/Screen%20Shot%202023-01-11%20at%2010.38.36%20PM.png)
+![Online Planner](./Assets/Screen%20Shot%202023-01-12%20at%202.53.47%20PM.png)
 
 ## License
