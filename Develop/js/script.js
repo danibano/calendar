@@ -3,7 +3,7 @@
 // in the html.
 
 const BUISNESS_HOURS_OPENED = 9
-const BUISNESS_HOURS_CLOSED = 18
+const BUISNESS_HOURS_CLOSED = 25
 const PAST = "past"
 const PRESENT = "present"
 const FUTURE = "future"
