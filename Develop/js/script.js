@@ -3,7 +3,7 @@
 // in the html.
 
 const BUISNESS_HOURS_OPENED = 9
-const BUISNESS_HOURS_CLOSED = 18
+const BUISNESS_HOURS_CLOSED = 23
 const PAST = "past"
 const PRESENT = "present"
 const FUTURE = "future"
@@ -14,7 +14,8 @@ let currentHour = clock.hour()
 function setClock() {
   setInterval(() => { //run the code every second
     clock = clock.add(1, "second") // adds 1 second to the clock
-
+    $("#currentDay").text(clock.format("dddd, MMMM D, YYYY. h:m:ss a"))
+    console.log(clock.hour())
     if (clock.hour() !== currentHour) { // if the hour changed then run handleHourChange function
       currentHour = clock.hour() // if the hour did change then we need to update the current hour globally
       handleHourChange(clock.hour())
@@ -26,7 +27,7 @@ function handleHourChange(hour) { // the point of this function is to handle the
   $(".time-block").each(function() {
     const timeBlockId = $(this).attr("id") //grabs the hour id
     const timeBlockHour = timeBlockId.split("-")[1] //splits the id into an array and gets the hour string
-    const previousTimeTense = $(this).attr("class").find((className) => [ PAST, PRESENT, FUTURE].includes(className))
+    const previousTimeTense = $(this).attr("class").split(" ").find((className) => [ PAST, PRESENT, FUTURE].includes(className))
     const timeTense = getTimeTense(Number(timeBlockHour), hour) //grabbing the string and turning it into a number
     const hourChanged = !$(this).hasClass(timeTense) //the hour changed if the timeTense is not included in the class
     
@@ -71,7 +72,9 @@ function renderBuisnessHours() {
 }
 
 $(function () {
-  $("#currentDay").text(dayjs().format("dddd, MMMM D"))
+  setClock()
+
+  $("#currentDay").text(clock.format("dddd, MMMM D, YYYY. h:m:ss a"))
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -79,7 +82,7 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
   //
-  setClock()
+ 
   renderBuisnessHours()
 
   // TODO: Add code to apply the past, present, or future class to each time
