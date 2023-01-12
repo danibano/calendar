@@ -3,24 +3,34 @@
 // in the html.
 
 const BUISNESS_HOURS_OPENED = 9
-const BUISNESS_HOURS_CLOSED = 23
+const BUISNESS_HOURS_CLOSED = 18
 const PAST = "past"
 const PRESENT = "present"
 const FUTURE = "future"
 let clock = dayjs()
 let currentHour = clock.hour()
 
+function handleSaveBtn(target) {
+  const timeBlockDiv = $(target).parentsUntil("#buisness-hours")//traversing up to get .time-block div
+  const textAreaValue = timeBlockDiv.children(".description").val()
+  localStorage.setItem(timeBlockDiv.attr("id"), textAreaValue)
+}
+
 
 function setClock() {
   setInterval(() => { //run the code every second
     clock = clock.add(1, "second") // adds 1 second to the clock
-    $("#currentDay").text(clock.format("dddd, MMMM D, YYYY. h:m:ss a"))
-    console.log(clock.hour())
+    updateClockText()
+
     if (clock.hour() !== currentHour) { // if the hour changed then run handleHourChange function
       currentHour = clock.hour() // if the hour did change then we need to update the current hour globally
       handleHourChange(clock.hour())
     }
   }, 1000)
+}
+
+function updateClockText() {
+  $("#currentDay").text(clock.format("dddd, MMMM D, YYYY. h:mm:ss a"))
 }
 
 function handleHourChange(hour) { // the point of this function is to handle the hour change and alternate the tense css classes 
@@ -53,10 +63,12 @@ function getTimeTense(hour, currentHour) {
 }
 
 function createHourBlock(hour, hourFormat) { //this creates the hour blocks by passing in stuff
+  const hourID = `hour-${hour}`
+  const existingEvent = localStorage.getItem(hourID) || "";
   return (`
-    <div id="hour-${hour}" class="row time-block ${getTimeTense(hour)}">
+    <div id="${hourID}" class="row time-block ${getTimeTense(hour)}">
       <div class="col-2 col-md-1 hour text-center py-3">${hourFormat}</div>
-      <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
+      <textarea class="col-8 col-md-10 description" rows="3">${existingEvent}</textarea>
       <button class="btn saveBtn col-2 col-md-1" aria-label="save">
         <i class="fas fa-save" aria-hidden="true"></i>
       </button>
@@ -74,7 +86,7 @@ function renderBuisnessHours() {
 $(function () {
   setClock()
 
-  $("#currentDay").text(clock.format("dddd, MMMM D, YYYY. h:m:ss a"))
+  updateClockText()
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -85,6 +97,12 @@ $(function () {
  
   renderBuisnessHours()
 
+  $("#buisness-hours").click(function(event) {
+    const isSaveBtn = $(event.target).hasClass("saveBtn") || $(event.target).hasClass("fa-save");
+    if (isSaveBtn) {
+      handleSaveBtn(event.target)
+    }
+  })
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
   // attribute of each time-block be used to conditionally add or remove the
