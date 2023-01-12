@@ -1,33 +1,21 @@
-# 05 Third-Party APIs: Work Day Scheduler
+# Work Day Scheduler
 
-## Your Task
+## Description
 
-Create a simple calendar application that allows a user to save events for each hour of the day by modifying starter code. This app will run in the browser and feature dynamically updated HTML and CSS powered by jQuery.
+The purpose of this project was to build a work day scheduler so that users can add events into a daily planner. The planner will display the current day and time which is powered using DayJs. The hour time blocks change color depending if the current hour is past, present or future. Inside the time block you can add and saves your event to the local storage so that if you reload the page it still exists. If I were to go back and add something I would add a clear all/clear hour button so that the user can have a clear text area.
 
-You'll need to use the [Day.js](https://day.js.org/en/) library to work with date and time. Be sure to read the documentation carefully and concentrate on using Day.js in the browser.
+## Table of Contents
 
-## User Story
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
 
-```md
-AS AN employee with a busy schedule
-I WANT to add important events to a daily planner
-SO THAT I can manage my time effectively
-```
+## Installation
 
-## Acceptance Criteria
+Click [here.](https://danibano.github.io/work-day-scheduler/)
 
-```md
-GIVEN I am using a daily planner to create a schedule
-WHEN I open the planner
-THEN the current day is displayed at the top of the calendar
-WHEN I scroll down
-THEN I am presented with timeblocks for standard business hours
-WHEN I view the timeblocks for that day
-THEN each timeblock is color coded to indicate whether it is in the past, present, or future
-WHEN I click into a timeblock
-THEN I can enter an event
-WHEN I click the save button for that timeblock
-THEN the text for that event is saved in local storage
-WHEN I refresh the page
-THEN the saved events persist
-```
+## Usage
+
+![Online Planner](./Assets/Screen%20Shot%202023-01-11%20at%2010.38.36%20PM.png)
+
+## License
